@@ -9,7 +9,7 @@
  ------------------  */
 
 $(window).load(function () {
-    $('#preloader').delay(350).fadeOut('slow', function () {
+    $('#preloader').delay(200).fadeOut('slow', function () {
         $('.profile-page, .resume-page, .contact-page').hide();
     });
 });
