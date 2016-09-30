@@ -25,11 +25,12 @@
                     center: {lat: 41.876, lng: -87.624}
                 });
 
-                var myParser = new geoXML3.parser({map: map});
-                myParser.parse('cta.kml');
+                var ctaLayer = new google.maps.KmlLayer({
+                    url: 'http://googlemaps.github.io/js-v2-samples/ggeoxml/cta.kml',
+                    map: map
+                });
             }
         </script>
-        <script type="text/javascript" src="http://geoxml3.googlecode.com/svn/branches/polys/geoxml3.js"></script>
         <script async defer
                 src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAnVXTkzB23Gx3g_-xw34pzfokdg1Yrzsc&callback=initMap">
         </script>
