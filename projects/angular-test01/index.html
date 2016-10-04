@@ -1,0 +1,197 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <link rel="icon" href="#">
+
+        <title>Front-End Project</title>
+
+        <!-- Bootstrap core CSS -->
+        <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="js/lib/ng-tags-input.min.css">  
+        <link rel="stylesheet" href="js/lib/ng-tags-input.bootstrap.min.css"> 
+
+        <link rel="stylesheet" href="css/style.css">
+
+    </head>
+
+    <body ng-app="testApp" ng-controller="testCtrl">
+
+        <div class="container">
+            <div class="row row-eq-height">
+                <div class="col-md-2 logo-col">
+                    <img src="img/logo.png" class="img-fluid logo-img">
+                </div>
+                <div class="col-md-10 header-items-col">
+                    <div class="row" id="header-row">
+                        <div class="col-md-3">
+                            <h5>The People</h5>
+                            <hr/>
+                            <p>Quality not quantity, an adage we've lived by for 30 years now.</p>
+                        </div>
+                        <div class="col-md-3">
+                            <h5>The Shop</h5>
+                            <hr/>
+                            <p>Buy our award winning wines online, read the lasting and technical notes.</p>
+                        </div>
+                        <div class="col-md-3">
+                            <h5>The News</h5>
+                            <hr/>
+                            <p>Latest happenings from winery and our wine club.</p>
+                        </div>
+                        <div class="col-md-3">
+                            <h5>Visit Us</h5>
+                            <hr/>
+                            <p>Our award winning native garden, artist residence and cellar door.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-10 offset-md-2 no-padding-left">
+                    <img src="img/us-flag.png" class="us-flag"> US Customers, Please <a href="#">click</a> here to order wine
+                </div>
+                <div class="col-md-2 offset-md-10 no-padding-right">
+                    <div class="gap-sm">&nbsp;</div>
+                    <h5>The Club</h5>
+                    <hr/>
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-3">
+                    <ul class="nav nav-tabs" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link active" data-toggle="tab" href="#home" role="tab">Show Me</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link pull-md-left" data-toggle="tab" href="#profile" role="tab">Show All</a>
+                        </li>
+                    </ul>
+
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                        <div class="tab-pane active" id="home" role="tabpanel">
+                            <tags-input ng-model="tags">
+                                <auto-complete source="loadTags($query)"></auto-complete>
+                            </tags-input>
+                        </div>
+                        <div class="tab-pane" id="profile" role="tabpanel">...</div>
+                    </div>
+                </div>
+
+                <div class="col-md-9">
+                    <div class="row row-eq-height checkout-row">
+                        <div class="col-md-3 delivery-info-col">
+                            <h4 class="delivery-info-title">Delivery Info</h4>
+                        </div>
+                        <div class="col-md-4 text-center quantity-info">
+                            <h1>{{ getBottles()}}</h1>
+                            <h1>Bottles</h1>
+                        </div>
+                        <div class="col-md-5">
+                            <div class="cart-item-section" ng-repeat="i in cartItems">
+                                <h5>{{ i.item_qty}} x {{ i.item_price}} {{ i.item_name}}<a ng-click="removeFromCart(cartItems, $index)" class="remove-anchor">Remove</a></h5> 
+                            </div>
+                            <div class="cart-item-section" ng-if="!cartItems.length">
+                                <h5>Your cart is empty</h5>
+                            </div>
+                            <div class="cart-total-section">
+                                <h4>Total <span>${{ getTotalInCart()}}</span></h4>
+                            </div>
+                            <div class="cart-action-section text-right">
+                                <a href class="btn btn-default empty-cart-btn" ng-click="emptyCart()">Empty Cart</a>
+                                <a href="#" class="btn btn-default checkout-cart-btn">Checkout</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="gap-md">&nbsp;</div>
+
+            <!-- product row-->
+            <div class="row product-row row-eq-height">
+
+                <!-- product 3 -->
+                <div class="col-md-4 col-sm-6 col-xs-12" ng-repeat="x in names">
+                    <div class="row row-eq-height">
+                        <div class="col-md-4 col-sm-4">
+                            <img ng-src="img/wines/{{ x.product_img}}" class="product-img img-fluid">
+                        </div>
+                        <div class="col-md-8 col-sm-8">
+                            <div class="top-caption">
+                                <span>13</span>
+                                <h4>{{ x.product_name}}</h4>
+                            </div>
+                            <div class="row row-eq-height caption-row">
+                                <div class="bottle-caption col-md-6 col-sm-6">
+                                    <h4>Bottle</h4>
+                                    <div class="wine-price">{{x.bottle_price * x.bottle_qty| currency }}</div>
+                                    <div><input type="number" class="quantity" string-to-number ng-model="x.bottle_qty" /> QTY</div>
+                                    <div class="clearfix"></div>
+                                    <a href="#" class="details-btn">Details</a>
+                                </div>
+                                <div class="case-caption col-md-6 col-sm-6">
+                                    <h4>Case</h4>
+                                    <div class="wine-price">{{ x.case_price * x.case_qty | currency }}</div>
+                                    <div><input type="number" class="quantity" string-to-number ng-model="x.case_qty" /> QTY</div>
+                                    <div class="clearfix"></div>
+                                    <a href class="add-to-cart-btn" ng-click="addToCart(names, $index)" ng-if="!isInCart(x.product_id)">Add to cart</a>
+                                    <a href class="in-cart-btn" ng-if="isInCart(x.product_id)">In Cart</a>
+
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-gap">&nbsp;</div>
+
+            <div class="row footer-section">
+                <div class="row footer-header-row">
+                    <div class="col-md-4">
+                        <h3>Wine Orders</h3>
+                    </div>
+                    <div class="col-md-8">
+                        <h3>Delivery</h3>  
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <br/>
+                        <p>All prices are in New Zealand Dollars and include GST.</p>
+                        <p>You must be 18 years or older to order.</p>
+                        <p>We reserve the right to restrict sales should orders exceed supply.</p>
+                        <p>We aim to please. If you're not 100% happy, please return your purchase for a complete refund..</p>
+                    </div>
+                    <div class="col-md-4">
+                        <br/>
+                        <p>Delivery is available within New Zealand only and may take up to two weeks.</p>
+                        <p>For international enquiries please refer to our local agents or search for retailers on Wine Searcher.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-gap">&nbsp;</div>
+
+        </div>
+
+
+        <!-- Bootstrap core JavaScript
+        ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+        <script src="js/jquery.js"></script>
+        <script src="bootstrap/js/bootstrap.min.js"></script>
+        <script src="js/angular.min.js"></script>
+        <script src="js/lib/ng-tags-input.min.js"></script>
+        <script src="js/app.js"></script>
+    </body>
+</html>
