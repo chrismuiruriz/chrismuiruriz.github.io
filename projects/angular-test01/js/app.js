@@ -94,7 +94,7 @@ app.controller('testCtrl', function ($scope, $http) {
     };
 
     //fetch dummy products
-    $http({method: 'JSONP', url: 'https://beanvas.com/angular-test/angular-test/getProducts.php'}).success(function (response) {
+    $http({method: 'JSONP', url: 'https://beanvas.com/angular-test/getProducts.php'}).success(function (response) {
         $scope.names = response;
     });
 
