@@ -94,12 +94,12 @@ app.controller('testCtrl', function ($scope, $http) {
     };
 
     //fetch dummy products
-    $http({method: 'GET', url: 'http://localhost/frontend/backend/getProducts.php'}).success(function (response) {
+    $http({method: 'GET', url: 'http://bean.co.ke/testzone/angular-test/getProducts.php'}).success(function (response) {
         $scope.names = response;
     });
 
     //fetch dummy products in cart
-    $http({method: 'GET', url: 'http://localhost/frontend/backend/getCartItems.php'}).success(function (response) {
+    $http({method: 'GET', url: 'http://bean.co.ke/testzone/angular-testgetCartItems.php'}).success(function (response) {
         $scope.cartItems = response;
         $scope.totalItems = $scope.cartItems.length;
     });
