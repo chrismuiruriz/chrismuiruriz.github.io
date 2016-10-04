@@ -1,4 +1,7 @@
 var app = angular.module('testApp', ['ngTagsInput']);
+app.config(function ($httpProvider) {
+    $httpProvider.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+});
 app.run(function ($rootScope) {
     $rootScope.typeOf = function (value) {
         return typeof value;
@@ -94,12 +97,12 @@ app.controller('testCtrl', function ($scope, $http) {
     };
 
     //fetch dummy products
-    $http({method: 'JSONP', url: 'https://beanvas.com/angular-test/getProducts.php'}).success(function (response) {
+    $http({method: 'GET', url: 'https://beanvas.com/angular-test/getProducts.php'}).success(function (response) {
         $scope.names = response;
     });
 
     //fetch dummy products in cart
-    $http({method: 'JSONP', url: 'https://beanvas.com/angular-test/getCartItems.php'}).success(function (response) {
+    $http({method: 'GET', url: 'https://beanvas.com/angular-test/getCartItems.php'}).success(function (response) {
         $scope.cartItems = response;
         $scope.totalItems = $scope.cartItems.length;
     });
