@@ -97,12 +97,12 @@ app.controller('testCtrl', function ($scope, $http) {
     };
 
     //fetch dummy products
-    $http({method: 'GET', url: 'https://beanvas.com/angular-test/getProducts.php'}).success(function (response) {
+    $http({method: 'GET', url: '../getProducts.php'}).success(function (response) {
         $scope.names = response;
     });
 
     //fetch dummy products in cart
-    $http({method: 'GET', url: 'https://beanvas.com/angular-test/getCartItems.php'}).success(function (response) {
+    $http({method: 'GET', url: '../getCartItems.php'}).success(function (response) {
         $scope.cartItems = response;
         $scope.totalItems = $scope.cartItems.length;
     });
